@@ -1,4 +1,3 @@
-# import sys
 import time
 import copy
 from numpy.random import seed
@@ -40,7 +39,7 @@ def run_experiment(elements, custom_algo_times, merge_sort_times, insertion_sort
         insertion_start = time.clock()
         insertion_sort(c)
         insertion_end = time.clock()
-
+        
         elements.append(len(a))
         custom_algo_times.append(end-start)
         merge_sort_times.append(merge_end-merge_start)
