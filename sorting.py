@@ -12,7 +12,19 @@ def main():
     times = list()
     merge_sort_times = list()
     insertion_sort_times = list()
-    for i in range(1, 21):
+    run_experiment(elements, times, merge_sort_times, insertion_sort_times)
+    plt.xlabel('List Length')
+    plt.ylabel('Time Complexity')
+    plt.xticks(np.arange(100, 2100, 100))
+    plt.plot(elements, times, label = 'Custom Sort')
+    plt.plot(elements, merge_sort_times, label = 'Merge Sort')
+    plt.plot(elements, insertion_sort_times, label = 'Insertion Sort')
+    plt.grid()
+    plt.legend()
+    plt.show()
+
+def run_experiment(elements, custom_algo_times, merge_sort_times, insertion_sort_times):
+   for i in range(1, 21):
         a = randint(0, 1000 * i, 100 * i)
         b = copy.deepcopy(a)
         c = copy.deepcopy(a)
@@ -30,18 +42,9 @@ def main():
         insertion_end = time.clock()
 
         elements.append(len(a))
-        times.append(end-start)
+        custom_algo_times.append(end-start)
         merge_sort_times.append(merge_end-merge_start)
         insertion_sort_times.append(insertion_end-insertion_start)
-    plt.xlabel('List Length')
-    plt.ylabel('Time Complexity')
-    plt.xticks(np.arange(100, 2100, 100))
-    plt.plot(elements, times, label = 'Custom Sort')
-    plt.plot(elements, merge_sort_times, label = 'Merge Sort')
-    plt.plot(elements, insertion_sort_times, label = 'Insertion Sort')
-    plt.grid()
-    plt.legend()
-    plt.show()
 
 def custom_sort(Data):
     if(len(Data) <= 1000):
