@@ -3,6 +3,7 @@ import time
 import copy
 from numpy.random import seed
 from numpy.random import randint
+import numpy as np
 import matplotlib.pyplot as plt
 import random
 
@@ -11,19 +12,14 @@ def main():
     times = list()
     merge_sort_times = list()
     insertion_sort_times = list()
-    for i in range(1, 11):
-        a = randint(0, 1000 * i, 200 * i)
+    for i in range(1, 21):
+        a = randint(0, 1000 * i, 100 * i)
         b = copy.deepcopy(a)
         c = copy.deepcopy(a)
-        if(len(a) <= 1000):
-            start = time.clock()
-            insertion_sort(a)
-            print(b)
-            end = time.clock()
-        else:
-            start = time.clock()
-            merge_sort(a)
-            end = time.clock()
+
+        start = time.clock()
+        custom_sort(a)
+        end = time.clock()
 
         merge_start = time.clock()
         merge_sort(b)
@@ -35,20 +31,24 @@ def main():
 
         elements.append(len(a))
         times.append(end-start)
-        print('CustomTime: ' + str(end-start))
-        print('InsertionTime: ' + str(insertion_end-insertion_start))
-        print('MergeTime: ' + str(merge_end-merge_start))
         merge_sort_times.append(merge_end-merge_start)
         insertion_sort_times.append(insertion_end-insertion_start)
-    
     plt.xlabel('List Length')
     plt.ylabel('Time Complexity')
+    plt.xticks(np.arange(100, 2100, 100))
     plt.plot(elements, times, label = 'Custom Sort')
     plt.plot(elements, merge_sort_times, label = 'Merge Sort')
     plt.plot(elements, insertion_sort_times, label = 'Insertion Sort')
     plt.grid()
     plt.legend()
     plt.show()
+
+def custom_sort(Data):
+    if(len(Data) <= 1000):
+        insertion_sort(Data)
+    else:
+        merge_sort(Data)
+    return Data
 
 def insertion_sort(Data):
     length = len(Data)
